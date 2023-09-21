@@ -5,7 +5,7 @@
 
 }
 body{
-	background-color: Black;
+	background-color: black;
 }
 .main{
 	max-width: auto;
@@ -18,7 +18,7 @@ body{
 	transform: translate(-50%,-50%);
 }
 .title h3{
-	color: White;
+	color: lightgreen;
 	font-size: 60px;
 	position: center;
 }
@@ -27,5 +27,5 @@ h4{
 	top: 45%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-	color: white;
+	color: lightgreen;
 }
