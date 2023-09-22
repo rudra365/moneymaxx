@@ -7,10 +7,6 @@
 body{
 	background-color: black;
 }
-.main{
-	max-width: auto;
-	margin: auto;
-}
 .title{
 	position: absolute;
 	top: 5%;
