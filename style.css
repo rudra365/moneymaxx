@@ -13,7 +13,7 @@ body{
 }
 .title{
 	position: absolute;
-	top: 10%;
+	top: 5%;
 	left: 50%;
 	transform: translate(-50%,-50%);
 }
@@ -25,12 +25,13 @@ body{
 }
 h4{
 	position: absolute;
+	font-size: 25px;
 	top: 45%;
 	left: 50%;
 	transform: translate(-50%,-50%);
 	color: lightgreen;
 }
 img{
-	height: 360px;
+	height: 560px;
 	width: 800px;
 }
