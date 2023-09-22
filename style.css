@@ -26,6 +26,7 @@ h4{
 img{
 	height: 850px;
 	width: 745px;
+	position: center;
 }
 p{
 	color: lightgreen;
