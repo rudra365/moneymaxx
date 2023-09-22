@@ -27,3 +27,7 @@ img{
 	height: 850px;
 	width: 745px;
 }
+p{
+	color: lightgreen;
+	top: 100%;
+}
