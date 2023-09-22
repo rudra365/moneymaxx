@@ -4,8 +4,8 @@
 }
 	body{
 	background-color: black;
-	width: 1200px;
-	height: 3200px;
+	width: 1000px;
+	height: 3500px;
 	margin: 0;
 	padding: 0;
 }
@@ -26,10 +26,9 @@ h4{
 img{
 	height: 850px;
 	width: 745px;
-	position: center;
-	top: 10%;
+	position: absolute;
 }
 p{
 	color: lightgreen;
-	top: 10%;
+	top: 80%;
 }
