@@ -1,9 +1,43 @@
-<html>
-<head><title>MoneyMaxx</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHA-256 Hash Calculator</title>
+  <script>
+    function calculateHash() {
+      // Get the input value
+      var inputValue = document.getElementById('inputText').value;
+
+      // Check if the input is not empty
+      if (inputValue.trim() !== '') {
+        // Calculate SHA-256 hash
+        var hash = sha256(inputValue);
+
+        // Display the hash result
+        document.getElementById('hashResult').textContent = 'SHA-256 Hash: ' + hash;
+      } else {
+        // Display an error message for empty input
+        document.getElementById('hashResult').textContent = 'Please enter a value.';
+      }
+    }
+
+    // SHA-256 hash function
+    function sha256(str) {
+      var buffer = new TextEncoder('utf-8').encode(str);
+      return crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
+        var hashArray = Array.from(new Uint8Array(hashBuffer));
+        var hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+        return hashHex;
+      });
+    }
+  </script>
 </head>
 <body>
-	<h3>Hello World !!</h3>
-	<p>2023 @Copyright</p>	
+  <h1>SHA-256 Hash Calculator</h1>
+  <label for="inputText">Enter Text:</label>
+  <input type="text" id="inputText" placeholder="Type something...">
+  <button onclick="calculateHash()">Calculate Hash</button>
+  <p id="hashResult"></p>
 </body>
 </html>
