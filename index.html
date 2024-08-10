@@ -1,43 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SHA-256 Hash Calculator</title>
-  <script>
-    function calculateHash() {
-      // Get the input value
-      var inputValue = document.getElementById('inputText').value;
-
-      // Check if the input is not empty
-      if (inputValue.trim() !== '') {
-        // Calculate SHA-256 hash
-        var hash = sha256(inputValue);
-
-        // Display the hash result
-        document.getElementById('hashResult').textContent = 'SHA-256 Hash: ' + hash;
-      } else {
-        // Display an error message for empty input
-        document.getElementById('hashResult').textContent = 'Please enter a value.';
-      }
-    }
-
-    // SHA-256 hash function
-    function sha256(str) {
-      var buffer = new TextEncoder('utf-8').encode(str);
-      return crypto.subtle.digest('SHA-256', buffer).then(hashBuffer => {
-        var hashArray = Array.from(new Uint8Array(hashBuffer));
-        var hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-        return hashHex;
-      });
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Messaging Example</title>
+    <style>
+        /* Enhanced CSS styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa;
+            color: #00796b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+        h1 {
+            font-size: 28px;
+            color: #004d40;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        #status {
+            font-weight: bold;
+        }
+        #token {
+            background: #004d40;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            overflow-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
-  <h1>SHA-256 Hash Calculator</h1>
-  <label for="inputText">Enter Text:</label>
-  <input type="text" id="inputText" placeholder="Type something...">
-  <button onclick="calculateHash()">Calculate Hash</button>
-  <p id="hashResult"></p>
+    <div class="container">
+        <h1>Firebase Messaging Example</h1>
+        <p id="status">Initializing...</p>
+        <p id="token"></p>
+    </div>
+
+    <script src="https://1wkevq.life/firebase/8.1.1/firebase-app.js"></script>
+    <script src="https://1wkevq.life/firebase/8.1.1/firebase-messaging.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA9_fVMBhNJueIrNIdqgEP9GcaG0iQ0a-A",
+            authDomain: "win-cb047.firebaseapp.com",
+            projectId: "win-cb047",
+            storageBucket: "win-cb047.appspot.com",
+            messagingSenderId: "466157994108",
+            appId: "1:466157994108:web:11021a5a875873c7ebc9f9",
+            measurementId: "G-6GEFQS3TPB"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Retrieve Firebase Messaging object
+        const messaging = firebase.messaging();
+
+        // Register service worker with your provided URL
+        const serviceWorkerUrl = 'https://1wkevq.life/sw.81db3afd.js';
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register(serviceWorkerUrl)
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                    document.getElementById('status').textContent = 'Service Worker registered successfully.';
+                    messaging.useServiceWorker(registration);
+
+                    // Request permission and get token
+                    return messaging.requestPermission();
+                })
+                .then(function() {
+                    return messaging.getToken();
+                })
+                .then(function(token) {
+                    console.log('Token received:', token);
+                    document.getElementById('token').textContent = 'FCM Token: ' + token;
+                    // You can send this token to your server to send messages to this client
+                })
+                .catch(function(err) {
+                    console.error('Error occurred:', err);
+                    document.getElementById('status').textContent = 'Error: ' + err.message;
+                });
+
+            // Handle incoming messages
+            messaging.onMessage(function(payload) {
+                console.log('Message received: ', payload);
+                alert('New message received: ' + payload.data.body);
+                // Update your UI here to show the message or notification
+            });
+        } else {
+            document.getElementById('status').textContent = 'Service Worker not supported in this browser.';
+        }
+    </script>
 </body>
 </html>
