@@ -75,8 +75,8 @@
         // Retrieve Firebase Messaging object
         const messaging = firebase.messaging();
 
-        // Register service worker with your provided URL
-        const serviceWorkerUrl = 'https://1wkevq.life/sw.81db3afd.js';
+        // Register service worker with a local URL
+        const serviceWorkerUrl = '/firebase-messaging-sw.js';
 
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register(serviceWorkerUrl)
